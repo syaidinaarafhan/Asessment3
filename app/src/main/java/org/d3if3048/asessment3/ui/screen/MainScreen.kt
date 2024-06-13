@@ -303,7 +303,7 @@ fun ListItem(sepatu: Sepatu) {
                 ) {
                     Icon(
                         painter = painterResource(id = R.drawable.baseline_delete_24),
-                        contentDescription = "Delete",
+                        contentDescription = "Hapus",
                         tint = Color.White
                     )
                 }
