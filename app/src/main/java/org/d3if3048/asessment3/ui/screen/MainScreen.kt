@@ -98,7 +98,7 @@ fun MainScreen() {
     var showDialog by remember {
         mutableStateOf(false)
     }
-    var showHewanDialog by remember {
+    var showSepatuDialog by remember {
         mutableStateOf(false)
     }
 
@@ -107,7 +107,7 @@ fun MainScreen() {
     }
     val launcher = rememberLauncherForActivityResult(CropImageContract()) {
         bitmap = getCroppedImage(context.contentResolver, it)
-        if (bitmap != null) showHewanDialog = true
+        if (bitmap != null) showSepatuDialog = true
     }
 
     Scaffold(
@@ -172,12 +172,12 @@ fun MainScreen() {
                 showDialog = false
             }
         }
-        if (showHewanDialog) {
+        if (showSepatuDialog) {
             SepatuDialog(
                 bitmap = bitmap,
-                onDismissRequest = { showHewanDialog = false }) { nama, namaLatin ->
+                onDismissRequest = { showSepatuDialog = false }) { nama, namaLatin ->
                 viewModel.saveData(user.email, nama, namaLatin, bitmap!!)
-                showHewanDialog = false
+                showSepatuDialog = false
             }
         }
         if (errorMessage != null) {
@@ -232,7 +232,7 @@ fun ScreenContent(viewModel: MainViewModel, userId: String, modifier: Modifier) 
                     modifier = Modifier.padding(top = 16.dp),
                     contentPadding = PaddingValues(horizontal = 32.dp, vertical = 16.dp)
                 ) {
-                    Text(text = stringResource(id = R.string.try_again))
+                    Text(text = stringResource(id = R.string.coba_lagi))
                 }
             }
         }
@@ -243,6 +243,7 @@ fun ScreenContent(viewModel: MainViewModel, userId: String, modifier: Modifier) 
 
 @Composable
 fun ListItem(sepatu: Sepatu) {
+
     val context = LocalContext.current
     val dataStore = UserDataStore(context)
     val user by dataStore.userFlow.collectAsState(User())
